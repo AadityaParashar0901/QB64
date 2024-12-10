@@ -1,0 +1,59 @@
+Function QIMG_Save$ (IMG&(), StartFrame&, EndFrame&)
+    Dim QIMG_H As QIMG_Header: Dim As _MEM M, S: Dim I As _Unsigned Long
+    QIMG_H.Signature = "QIMG": QIMG_H.Width = _Width(IMG&(StartFrame&)): QIMG_H.Height = _Height(IMG&(StartFrame&)): QIMG_H.Frames = EndFrame& - StartFrame& + 1: QIMG_H.ColorType = 32
+    For I = StartFrame& To EndFrame&: If IMG&(I) >= -1 Then QIMG_H.Frames = QIMG_H.Frames - 1: _Continue
+    M = _MemImage(IMG&(I)): IMGDATA$ = String$(M.SIZE, 0): S = _Mem(_Offset(IMGDATA$), M.SIZE): _MemCopy M, M.OFFSET, M.SIZE To S, S.OFFSET: _MemFree M: _MemFree S: QIMGDATA$ = QIMGDATA$ + IMGDATA$: Next I
+    IMGDATA$ = "": QIMGDATA$ = OneByteEncode$(QIMGDATA$): QIMG_H.DataLength = Len(QIMGDATA$): QIMG_H.Compressed = 2
+    M = _Mem(QIMG_H): QIMG_H$ = String$(M.SIZE, 0): S = _Mem(_Offset(QIMG_H$), M.SIZE): _MemCopy M, M.OFFSET, M.SIZE To S, S.OFFSET: _MemFree M: _MemFree S
+    QIMG_Save$ = QIMG_H$ + QIMGDATA$: QIMG_H$ = "": QIMGDATA$ = ""
+End Function
+Sub QIMG_Load (QIMG_H As QIMG_Header, IMGDATA$, IMG&())
+    Dim As _Unsigned Long I: Dim As _MEM M, S: Dim As _Offset __OFFSET
+    If QIMG_H.Signature <> "QIMG" Then Print "This isn't a QIMG File"
+    QIMGDATA$ = OneByteDecode$(IMGDATA$): __OFFSET = _Offset(QIMGDATA$)
+    For I = 1 To QIMG_H.Frames: IMG&(I) = _NewImage(QIMG_H.Width, QIMG_H.Height, QIMG_H.ColorType): M = _MemImage(IMG&(I)): S = _Mem(__OFFSET, M.SIZE): __OFFSET = __OFFSET + M.SIZE: _MemCopy S, S.OFFSET, S.SIZE To M, M.OFFSET: _MemFree M: _MemFree S: Next I: QIMGDATA$ = ""
+End Sub
+Function PNG32 (__FILENAME As String, __IMAGE As Long, __PNGDATA As String)
+    Dim As String __PNGHEADER, __IHDR, __IDAT, __IMAGDATA, __EXT: Dim As Long __WIDTH, __HEIGHT, __F, __SOURCE, __OFFSET, __X, __Y, __P
+    __PNGHEADER = MKL$(&H474E5089) + MKL$(&H0A1A0A0D): __WIDTH = _Width(__IMAGE): __HEIGHT = _Height(__IMAGE): __IHDR = "IHDR" + ReverseMKL$(__WIDTH) + ReverseMKL$(__HEIGHT) + MKI$(&H0608) + String$(3, 0): __IMAGDATA = String$((__HEIGHT + 1) * __WIDTH * 4, 0): __OFFSET = 1
+    __SOURCE = _Source: _Source __IMAGE
+    For __Y = 0 To __HEIGHT - 1: __OFFSET = __OFFSET + 1: For __X = 0 To __WIDTH - 1
+            __P = Point(__X, __Y): Asc(__IMAGDATA, __OFFSET) = _SHR(__P, 16): Asc(__IMAGDATA, __OFFSET + 1) = _SHR(__P, 8): Asc(__IMAGDATA, __OFFSET + 2) = __P: Asc(__IMAGDATA, __OFFSET + 3) = _SHR(__P, 24)
+    __OFFSET = __OFFSET + 4: Next __X: Next __Y
+    _Source __SOURCE
+    __IDAT = "IDAT" + _Deflate$(__IMAGDATA): __PNGDATA = __PNGHEADER + ReverseMKL$(&H0D) + __IHDR + ReverseMKL$(crc32~&(__IHDR)) + ReverseMKL$(Len(__IDAT) - 4) + __IDAT + ReverseMKL$(crc32~&(__IDAT)) + String$(4, 0) + "IEND" + MKL$(&H826042AE)
+    If Len(__FILENAME) Then
+        __F = FreeFile
+        If _StriCmp(Right$(__FILENAME, 4), ".png") Then __EXT = ".png" Else __EXT = ""
+        If _FileExists(__FILENAME + __EXT) Then Kill __FILENAME + __EXT
+        Open __FILENAME + __EXT For Binary As #__F: Put #__F, , __PNGDATA: Close #__F
+    End If
+    If _FileExists(__FILENAME) Then PNG32 = -1 Else PNG32 = 0
+End Function
+Function ReverseMKL$ (__L~&): Dim __RMKL As String: __RMKL = String$(4, 0): Asc(__RMKL, 1) = _SHR(__L~&, 24): Asc(__RMKL, 2) = _SHR(__L~&, 16): Asc(__RMKL, 3) = _SHR(__L~&, 8): Asc(__RMKL, 4) = __L~&: ReverseMKL$ = __RMKL: End Function
+Function crc32~& (__IN$): Dim As _Unsigned Long __CRC32_POLY, __CRC, __I: __CRC32_POLY = &HEDB88320: __CRC = &HFFFFFFFF: For __I = 1 To Len(__IN$): __CRC = __CRC Xor Asc(__IN$, __I)
+        If __CRC And 1 Then __CRC = _SHR(__CRC, 1) Xor __CRC32_POLY Else __CRC = _SHR(__CRC, 1)
+        If __CRC And 1 Then __CRC = _SHR(__CRC, 1) Xor __CRC32_POLY Else __CRC = _SHR(__CRC, 1)
+        If __CRC And 1 Then __CRC = _SHR(__CRC, 1) Xor __CRC32_POLY Else __CRC = _SHR(__CRC, 1)
+        If __CRC And 1 Then __CRC = _SHR(__CRC, 1) Xor __CRC32_POLY Else __CRC = _SHR(__CRC, 1)
+        If __CRC And 1 Then __CRC = _SHR(__CRC, 1) Xor __CRC32_POLY Else __CRC = _SHR(__CRC, 1)
+        If __CRC And 1 Then __CRC = _SHR(__CRC, 1) Xor __CRC32_POLY Else __CRC = _SHR(__CRC, 1)
+        If __CRC And 1 Then __CRC = _SHR(__CRC, 1) Xor __CRC32_POLY Else __CRC = _SHR(__CRC, 1)
+        If __CRC And 1 Then __CRC = _SHR(__CRC, 1) Xor __CRC32_POLY Else __CRC = _SHR(__CRC, 1)
+Next __I: crc32~& = Not __CRC: End Function
+Function OneByteEncode$ (__I$): Dim As _Unsigned _Byte __ONEBYTE, __C: Dim As _Unsigned Long __BYTE_BUFFER_OFFSET, __POSITION_BUFFER_OFFSET, __I, __LENA, __Frequency_Table(0 To 255): Dim __J As _Unsigned _Bit * 3: Dim As String __BYTE_BUFFER, __POSITION_BUFFER: __LENA = Len(__I$)
+    For __I = 1 To __LENA: __BYTE~%% = Asc(__I$, __I): __Frequency_Table(__BYTE~%%) = __Frequency_Table(__BYTE~%%) + 1: Next __I
+    For __BI~%% = 0 To 255: If __Frequency_Table(__BI~%%) > __Frequency_Table(__ONEBYTE) Then __ONEBYTE = __BI~%%
+    Next __BI~%%
+    __BYTE_BUFFER = String$(Len(__I$), 0): __POSITION_BUFFER = String$(Remain(Len(__I$), 8) + 1, 0)
+    For __I = 1 To Len(__I$): __C = Asc(__I$, __I): If __J = 0 Then __POSITION_BUFFER_OFFSET = __POSITION_BUFFER_OFFSET + 1
+        If __C <> __ONEBYTE Then Asc(__POSITION_BUFFER, __POSITION_BUFFER_OFFSET) = _SetBit(Asc(__POSITION_BUFFER, __POSITION_BUFFER_OFFSET), __J): __BYTE_BUFFER_OFFSET = __BYTE_BUFFER_OFFSET + 1: Asc(__BYTE_BUFFER, __BYTE_BUFFER_OFFSET) = __C
+    __J = __J + 1: Next __I
+__POSITION_BUFFER = _Deflate$(Left$(__POSITION_BUFFER, __POSITION_BUFFER_OFFSET)): __BYTE_BUFFER = _Deflate$(Left$(__BYTE_BUFFER, __BYTE_BUFFER_OFFSET)): OneByteEncode$ = MKL$(Len(__I$)) + MKL$(Len(__POSITION_BUFFER)) + MKL$(Len(__BYTE_BUFFER)) + Chr$(__ONEBYTE) + __POSITION_BUFFER + __BYTE_BUFFER: __POSITION_BUFFER = "": __BYTE_BUFFER = "": End Function
+Function OneByteDecode$ (__I$): Dim As _Unsigned Long __I, __BYTE_BUFFER_OFFSET, __POSITION_BUFFER_OFFSET: Dim As _Unsigned _Bit * 3 __J: Dim As String __BYTE_BUFFER, __POSITION_BUFFER, __OUT_BUFFER
+    __OUT_LENGTH~& = CVL(Left$(__I$, 4)): __POSITION_BUFFER_DEFLATE_LENGTH~& = CVL(Mid$(__I$, 5, 4)): __BYTE_BUFFER_DEFLATE_LENGTH~& = CVL(Mid$(__I$, 9, 4)): __ONEBYTE~%% = Asc(__I$, 13): __POSITION_BUFFER = _Inflate$(Mid$(__I$, 14, __POSITION_BUFFER_DEFLATE_LENGTH~&)): __BYTE_BUFFER = _Inflate$(Mid$(__I$, 14 + __POSITION_BUFFER_DEFLATE_LENGTH~&, __BYTE_BUFFER_DEFLATE_LENGTH~&)): __OUT_BUFFER = String$(__OUT_LENGTH~&, 0): __POSITION_BUFFER_OFFSET = 0: __BYTE_BUFFER_OFFSET = 0
+    For __I = 1 To __OUT_LENGTH~&: If __J = 0 Then __POSITION_BUFFER_OFFSET = __POSITION_BUFFER_OFFSET + 1
+        If _ReadBit(Asc(__POSITION_BUFFER, __POSITION_BUFFER_OFFSET), __J) Then __BYTE_BUFFER_OFFSET = __BYTE_BUFFER_OFFSET + 1: Asc(__OUT_BUFFER, __I) = Asc(__BYTE_BUFFER, __BYTE_BUFFER_OFFSET) Else Asc(__OUT_BUFFER, __I) = __ONEBYTE~%%
+    __J = __J + 1: Next __I
+__POSITION_BUFFER = "": __BYTE_BUFFER = "": OneByteDecode = __OUT_BUFFER: End Function
+Function Remain~& (A~&, B~&): Remain~& = A~& \ B~& + Sgn(A~& Mod B~&): End Function

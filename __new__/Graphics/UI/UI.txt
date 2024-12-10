@@ -1,0 +1,71 @@
+UI_Properties:
+    UBYTE Type
+    STR   IDLabel, Label, Text, Date, Time
+    UBYTE ISShown, ISVisibile, ISResizable, ISNotCancellable
+    ULONG Width, Height, PositionX, PositionY
+    ULONG ImageHandle, ForeColor, BackColor
+    ULONG Parent, OnLeftClick, OnRightClick, OnValueChange
+    DBL   Value, MinValue, MaxValue
+    STR   ExtraProperties, ToolTip
+
+Component Types:
+    TYPE_Button
+    TYPE_Label
+    TYPE_TextBox
+    TYPE_ImageBox
+    TYPE_ListBox
+    TYPE_SelectBox
+    TYPE_HoverBox
+    TYPE_RadioGroup -> Single, Multiple
+    TYPE_CheckBox -> Check, Switch
+    TYPE_TabGroup -> Horizontal, Vertical
+    TYPE_SeekBar
+    TYPE_Progress -> Bar, Circle
+    TYPE_MenuBar
+    TYPE_ContextMenu
+
+Dialog Types:
+    DIALOG_Message
+    DIALOG_TextBox
+    DIALOG_Button -> Single, Multiple
+    DIALOG_ListDialog
+    DIALOG_CustomDialog
+
+Components:
+    Easy:
+        Button
+        Label
+        Dialog
+        ButtonDialog
+        InputDialog
+        Image Box
+        Seek Bar
+        Progress Bar, Circle
+        Radio Group
+        Checkbox
+
+Components:
+    Medium:
+        Menu-Bar
+        Context-Menu
+        Text Box
+        List Box
+        Select Box
+        ListDialog
+        Hover Box
+        Canvas
+        Toast
+        Switch
+
+Components:
+    Hard:
+        Clock
+        Calendar
+        Time Selection
+        Date Selection
+        Drawer
+        CustomDialog
+        Tab Group
+
+Component Addons:
+    Resize
