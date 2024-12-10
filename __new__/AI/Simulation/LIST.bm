@@ -1,0 +1,127 @@
+Function ListNew$
+    ListNew$ = MKL$(0)
+End Function
+Function ListNewRaw$ (__ListRaw As String)
+    Dim As _Unsigned Long __I, __nItem, __Nested
+    Dim As _Unsigned _Byte __C, __StringMode1, __StringMode2
+    Dim As String __List, __ListArray(0): __nItem = 1
+    For __I = 2 To Len(__ListRaw) - 1
+        __C = Asc(__ListRaw, __I)
+        Select Case __C
+            Case 34: __StringMode1 = Not __StringMode1
+            Case 39: __StringMode2 = Not __StringMode2
+            Case 44: If __StringMode1 = 0 And __StringMode2 = 0 And __Nested = 0 Then __nItem = __nItem + 1: _Continue
+            Case 91, 123: __Nested = __Nested + 1
+            Case 93, 125: __Nested = __Nested - 1
+        End Select
+        If __nItem > UBound(__ListArray) Then ReDim _Preserve __ListArray(1 To __nItem) As String
+        __ListArray(__nItem) = __ListArray(__nItem) + Chr$(__C)
+    Next __I
+    __List = MKL$(__nItem)
+    For __I = 1 To __nItem
+        __List = __List + MKI$(Len(__ListArray(__I))) + __ListArray(__I)
+    Next __I
+    ListNewRaw$ = __List
+End Function
+Function ListLength~& (__List As String)
+    ListLength~& = CVL(Mid$(__List, 1, 4))
+End Function
+Function ListAdd$ (__List As String, __Item As String)
+    ListAdd$ = MKL$(CVL(Mid$(__List, 1, 4)) + 1) + Mid$(__List, 5) + MKI$(Len(__Item)) + __Item
+End Function
+Function ListInsert$ (__List As String, __ItemNumber As _Unsigned Long, __Item As String)
+    Dim As _Unsigned Long __nItems, __I, __OFFSET
+    Dim As _Unsigned Integer __LEN
+    __nItems = CVL(Mid$(__List, 1, 4))
+    __OFFSET = 5
+    If __ItemNumber > __nItems Then
+        If __ItemNumber = __nItems + 1 Then ListInsert$ = ListAdd$(__List, __Item) Else Exit Function
+    End If
+    For __I = 1 To __ItemNumber - 1
+        __LEN = CVI(Mid$(__List, __OFFSET, 2))
+        Print Mid$(__List, __OFFSET + 2, __LEN)
+        __OFFSET = __OFFSET + __LEN + 2
+    Next __I
+    ListInsert$ = MKL$(CVL(Mid$(__List, 1, 4)) + 1) + Mid$(__List, 5, __OFFSET - 5) + MKI$(Len(__Item)) + __Item + Mid$(__List, __OFFSET)
+End Function
+Sub ListPrint (__List As String)
+    Dim As _Unsigned Long __nItems, __I, __OFFSET
+    Dim As _Unsigned Integer __LEN
+    __nItems = CVL(Mid$(__List, 1, 4))
+    __OFFSET = 5
+    Print "[";
+    For __I = 1 To __nItems
+        __LEN = CVI(Mid$(__List, __OFFSET, 2))
+        Print Mid$(__List, __OFFSET + 2, __LEN);
+        If __I < __nItems Then Print ",";
+        __OFFSET = __OFFSET + __LEN + 2
+    Next __I
+    Print "]"
+End Sub
+Function ListGet$ (__List As String, __ItemNumber As _Unsigned Long)
+    Dim As _Unsigned Long __nItems, __I, __OFFSET
+    Dim As _Unsigned Integer __LEN
+    __nItems = CVL(Mid$(__List, 1, 4))
+    If __ItemNumber > __nItems Then Exit Function
+    __OFFSET = 5
+    For __I = 1 To __nItems
+        __LEN = CVI(Mid$(__List, __OFFSET, 2))
+        If __I = __ItemNumber Then ListGet$ = Mid$(__List, __OFFSET + 2, __LEN): Exit Function
+        __OFFSET = __OFFSET + __LEN + 2
+    Next __I
+End Function
+Function ListSearch~& (__List As String, __Item As String)
+    Dim As _Unsigned Long __nItems, __I, __OFFSET
+    Dim As _Unsigned Integer __LEN
+    __nItems = CVL(Mid$(__List, 1, 4))
+    __OFFSET = 5
+    For __I = 1 To __nItems
+        __LEN = CVI(Mid$(__List, __OFFSET, 2))
+        If _StrCmp(Mid$(__List, __OFFSET + 2, __LEN), __Item) = 0 Then ListSearch~& = __I: Exit Function
+        __OFFSET = __OFFSET + __LEN + 2
+    Next __I
+End Function
+Function ListISearch~& (__List As String, __Item As String)
+    Dim As _Unsigned Long __nItems, __I, __OFFSET
+    Dim As _Unsigned Integer __LEN
+    __nItems = CVL(Mid$(__List, 1, 4))
+    __OFFSET = 5
+    For __I = 1 To __nItems
+        __LEN = CVI(Mid$(__List, __OFFSET, 2))
+        If _StriCmp(Mid$(__List, __OFFSET + 2, __LEN), __Item) = 0 Then ListISearch~& = __I: Exit Function
+        __OFFSET = __OFFSET + __LEN + 2
+    Next __I
+End Function
+Function ListEdit$ (__List As String, __ItemNumber As _Unsigned Long, __Item As String)
+    Dim As _Unsigned Long __nItems, __I, __OFFSET
+    Dim As _Unsigned Integer __LEN
+    __nItems = CVL(Mid$(__List, 1, 4))
+    __OFFSET = 5
+    If __ItemNumber > __nItems Then Exit Function
+    For __I = 1 To __nItems
+        __LEN = CVI(Mid$(__List, __OFFSET, 2))
+        If __I = __ItemNumber Then
+            Mid$(__List, __OFFSET, 2) = MKI$(Len(__Item))
+            ListEdit$ = Left$(__List, __OFFSET + 1) + __Item + Mid$(__List, __OFFSET + __LEN + 2)
+            Exit Function
+        End If
+        __OFFSET = __OFFSET + __LEN + 2
+    Next __I
+End Function
+Function ListDelete$ (__List As String, __ItemNumber As _Unsigned Long)
+    Dim As _Unsigned Long __nItems, __I, __OFFSET
+    Dim As _Unsigned Integer __LEN
+    __nItems = CVL(Mid$(__List, 1, 4))
+    __OFFSET = 5
+    For __I = 1 To __nItems
+        __LEN = CVI(Mid$(__List, __OFFSET, 2))
+        If __I = __ItemNumber Then
+            ListDelete$ = MKL$(__nItems - 1) + Mid$(__List, 5, __OFFSET - 5) + Mid$(__List, __OFFSET + __LEN + 2)
+            Exit Function
+        End If
+        __OFFSET = __OFFSET + __LEN + 2
+    Next __I
+End Function
+Function ListAppend$ (__List As String, __ListAppend As String)
+    ListAppend$ = MKL$(CVL(Mid$(__List, 1, 4)) + CVL(Mid$(__ListAppend, 1, 4))) + Mid$(__List, 5) + Mid$(__ListAppend, 5)
+End Function

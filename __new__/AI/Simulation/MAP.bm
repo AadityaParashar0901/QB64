@@ -1,0 +1,203 @@
+Function MapNew$
+    MapNew$ = MKL$(0)
+End Function
+Function MapNewRaw$ (__MapRaw As String)
+    Dim As _Unsigned Long __I, __nItem, __Nested
+    Dim As _Unsigned _Byte __C, __StringMode1, __StringMode2
+    Dim As String __Map, __MapArray(1 To 1, 1): __nItem = 1
+    For __I = 2 To Len(__MapRaw) - 1
+        __C = Asc(__MapRaw, __I)
+        Select Case __C
+            Case 34: __StringMode1 = Not __StringMode1
+            Case 39: __StringMode2 = Not __StringMode2
+            Case 44: If __StringMode1 = 0 And __StringMode2 = 0 And __Nested = 0 Then __nItem = __nItem + 1: _Continue
+            Case 58: If KeyValueMode = 0 Then KeyValueMode = 1 Else Exit Function
+                _Continue
+            Case 91, 123: __Nested = __Nested + 1
+            Case 93, 125: __Nested = __Nested - 1
+        End Select
+        If __nItem > UBound(__MapArray) Then ReDim _Preserve __MapArray(1 To __nItem, 1) As String: KeyValueMode = 0
+        __MapArray(__nItem, KeyValueMode) = __MapArray(__nItem, KeyValueMode) + Chr$(__C)
+    Next __I
+    __Map = MKL$(__nItem)
+    For __I = 1 To __nItem
+        __Map = __Map + MKI$(Len(__MapArray(__I, 0))) + __MapArray(__I, 0)
+        __Map = __Map + MKI$(Len(__MapArray(__I, 1))) + __MapArray(__I, 1)
+    Next __I
+    MapNewRaw$ = __Map
+End Function
+Function MapLength~& (__Map As String)
+    MapLength~& = CVL(Mid$(__Map, 1, 4))
+End Function
+Function MapAdd$ (__Map As String, __Key As String, __Value As String)
+    MapAdd$ = MKL$(CVL(Mid$(__Map, 1, 4)) + 1) + Mid$(__Map, 5) + MKI$(Len(__Key)) + __Key + MKI$(Len(__Value)) + __Value
+End Function
+Function MapAddElement$ (__Map As String, __KeyValue As String)
+    Dim As String __Key, __Value
+    If InStr(__KeyValue, ":") Then
+        __Key = Left$(__KeyValue, InStr(__KeyValue, ":") - 1)
+        __Value = Mid$(__KeyValue, InStr(__KeyValue, ":") + 1)
+    Else
+        __Key = __KeyValue
+        __Value = ""
+    End If
+    MapAddElement$ = MKL$(CVL(Mid$(__Map, 1, 4)) + 1) + Mid$(__Map, 5) + MKI$(Len(__Key)) + __Key + MKI$(Len(__Value)) + __Value
+End Function
+Function MapGetElement$ (__Map As String, __ItemNumber As _Unsigned Long)
+    Dim As String __Key, __Value
+    __Key = MapGetKey$(__Map, __ItemNumber)
+    __Value = MapGetValue$(__Map, __Key)
+    MapGetElement$ = __Key + ":" + __Value
+End Function
+Function MapSetElement$ (__Map As String, __ItemNumber As _Unsigned Long, __KeyValue As String)
+    Dim As String __Key, __Value
+    If InStr(__KeyValue, ":") Then
+        __Key = Left$(__KeyValue, InStr(__KeyValue, ":") - 1)
+        __Value = Mid$(__KeyValue, InStr(__KeyValue, ":") + 1)
+    Else
+        __Key = __KeyValue
+        __Value = ""
+    End If
+    Dim As _Unsigned Long __nItems, __I, __OFFSET
+    Dim As _Unsigned Integer __LEN1, __LEN2
+    __nItems = CVL(Mid$(__Map, 1, 4))
+    __OFFSET = 5
+    For __I = 1 To __nItems
+        __LEN1 = CVI(Mid$(__Map, __OFFSET, 2))
+        __LEN2 = CVI(Mid$(__Map, __OFFSET + __LEN1 + 2, 2))
+        If __I = __ItemNumber Then
+            MapSetElement$ = Left$(__Map, __OFFSET - 1) + MKI$(Len(__Key)) + __Key + MKI$(Len(__Value)) + __Value + Mid$(__Map, __OFFSET + __LEN1 + __LEN2 + 4)
+            Exit Function
+        End If
+        __OFFSET = __OFFSET + __LEN1 + __LEN2 + 4
+    Next __I
+End Function
+Sub MapPrint (__Map As String)
+    Dim As _Unsigned Long __nItems, __I, __OFFSET
+    Dim As _Unsigned Integer __LEN1, __LEN2
+    __nItems = CVL(Mid$(__Map, 1, 4))
+    __OFFSET = 5
+    Print "[";
+    For __I = 1 To __nItems
+        __LEN1 = CVI(Mid$(__Map, __OFFSET, 2))
+        __LEN2 = CVI(Mid$(__Map, __OFFSET + __LEN1 + 2, 2))
+        Print Mid$(__Map, __OFFSET + 2, __LEN1);
+        If __LEN2 Then Print ":"; Mid$(__Map, __OFFSET + __LEN1 + 4, __LEN2);
+        If __I < __nItems Then Print ",";
+        __OFFSET = __OFFSET + __LEN1 + __LEN2 + 4
+    Next __I
+    Print "]"
+End Sub
+Function MapGetKey$ (__Map As String, __ItemNumber As _Unsigned Long)
+    Dim As _Unsigned Long __nItems, __I, __OFFSET
+    Dim As _Unsigned Integer __LEN1, __LEN2
+    __nItems = CVL(Mid$(__Map, 1, 4))
+    If __nItems < __ItemNumber Then Exit Function
+    __OFFSET = 5
+    For __I = 1 To __nItems
+        __LEN1 = CVI(Mid$(__Map, __OFFSET, 2))
+        __LEN2 = CVI(Mid$(__Map, __OFFSET + __LEN1 + 2, 2))
+        If __I = __ItemNumber Then MapGetKey$ = Mid$(__Map, __OFFSET + 2, __LEN1)
+        __OFFSET = __OFFSET + __LEN1 + __LEN2 + 4
+    Next __I
+End Function
+Function MapGetValue$ (__Map As String, __ItemKey As String)
+    Dim As _Unsigned Long __nItems, __I, __OFFSET
+    Dim As _Unsigned Integer __LEN1, __LEN2
+    __nItems = CVL(Mid$(__Map, 1, 4))
+    __OFFSET = 5
+    For __I = 1 To __nItems
+        __LEN1 = CVI(Mid$(__Map, __OFFSET, 2))
+        __LEN2 = CVI(Mid$(__Map, __OFFSET + __LEN1 + 2, 2))
+        If __ItemKey = Mid$(__Map, __OFFSET + 2, __LEN1) Then MapGetValue$ = Mid$(__Map, __OFFSET + __LEN1 + 4, __LEN2)
+        __OFFSET = __OFFSET + __LEN1 + __LEN2 + 4
+    Next __I
+End Function
+Function MapGetKeyList$ (__Map As String)
+    Dim As _Unsigned Long __nItems, __I, __OFFSET
+    Dim As _Unsigned Integer __LEN1, __LEN2
+    MapKeyList$ = ListNew$
+    __nItems = CVL(Mid$(__Map, 1, 4))
+    __OFFSET = 5
+    For __I = 1 To __nItems
+        __LEN1 = CVI(Mid$(__Map, __OFFSET, 2))
+        __LEN2 = CVI(Mid$(__Map, __OFFSET + __LEN1 + 2, 2))
+        MapKeyList$ = ListAdd$(MapKeyList$, Mid$(__Map, __OFFSET + 2, __LEN1))
+        __OFFSET = __OFFSET + __LEN1 + __LEN2 + 4
+    Next __I
+    MapGetKeyList$ = MapKeyList$
+End Function
+Function MapGetValueList$ (__Map As String)
+    Dim As _Unsigned Long __nItems, __I, __OFFSET
+    Dim As _Unsigned Integer __LEN1, __LEN2
+    MapValueList$ = ListNew$
+    __nItems = CVL(Mid$(__Map, 1, 4))
+    __OFFSET = 5
+    For __I = 1 To __nItems
+        __LEN1 = CVI(Mid$(__Map, __OFFSET, 2))
+        __LEN2 = CVI(Mid$(__Map, __OFFSET + __LEN1 + 2, 2))
+        MapValueList$ = ListAdd$(MapValueList$, Mid$(__Map, __OFFSET + __LEN1 + 4, __LEN2))
+        __OFFSET = __OFFSET + __LEN1 + __LEN2 + 4
+    Next __I
+    MapGetValueList$ = MapValueList$
+End Function
+Function MapSetKeyList$ (__Map As String, __KeyList As String)
+    If MapLength~&(__Map) <> ListLength~&(__KeyList) Then Exit Function
+    Dim As _Unsigned Long __nItems, __I, __OFFSET
+    Dim As String __MapOut, __ValueList
+    __MapOut = MapNew$
+    __ValueList = MapGetValueList$(__Map)
+    __nItems = MapLength~&(__Map)
+    __OFFSET = 5
+    For __I = 1 To __nItems
+        __MapOut = MapAdd$(__MapOut, ListGet$(__KeyList, __I), ListGet$(__ValueList, __I))
+    Next __I
+    MapSetKeyList$ = __MapOut
+End Function
+Function MapSetValueList$ (__Map As String, __ValueList As String)
+    If MapLength~&(__Map) <> ListLength~&(__ValueList) Then Exit Function
+    Dim As _Unsigned Long __nItems, __I, __OFFSET
+    Dim As String __MapOut, __KeyList
+    __MapOut = MapNew$
+    __KeyList = MapGetValueList$(__Map)
+    __nItems = MapLength~&(__Map)
+    __OFFSET = 5
+    For __I = 1 To __nItems
+        __MapOut = MapAdd$(__MapOut, ListGet$(__KeyList, __I), ListGet$(__ValueList, __I))
+    Next __I
+    MapSetValueList$ = __MapOut
+End Function
+Function MapEdit$ (__Map As String, __ItemNumber As _Unsigned Long, __Key$, __Value$)
+    Dim As _Unsigned Long __nItems, __I, __OFFSET
+    Dim As _Unsigned Integer __LEN1, __LEN2
+    __nItems = CVL(Mid$(__Map, 1, 4))
+    __OFFSET = 5
+    For __I = 1 To __nItems
+        __LEN1 = CVI(Mid$(__Map, __OFFSET, 2))
+        __LEN2 = CVI(Mid$(__Map, __OFFSET + __LEN1 + 2, 2))
+        If __I = __ItemNumber Then
+            MapEdit$ = MKL$(__nItems) + Mid$(__Map, 5, __OFFSET - 5) + MKI$(Len(__Key$)) + __Key$ + MKI$(Len(__Value$)) + __Value$ + Mid$(__Map, __OFFSET + __LEN1 + __LEN2 + 4)
+            Exit Function
+        End If
+        __OFFSET = __OFFSET + __LEN1 + __LEN2 + 4
+    Next __I
+End Function
+Function MapDelete$ (__Map As String, __ItemNumber As _Unsigned Long)
+    Dim As _Unsigned Long __nItems, __I, __OFFSET
+    Dim As _Unsigned Integer __LEN1, __LEN2
+    __nItems = CVL(Mid$(__Map, 1, 4))
+    __OFFSET = 5
+    MapDelete$ = __Map
+    For __I = 1 To __nItems
+        __LEN1 = CVI(Mid$(__Map, __OFFSET, 2))
+        __LEN2 = CVI(Mid$(__Map, __OFFSET + __LEN1 + 2, 2))
+        If __I = __ItemNumber Then
+            MapDelete$ = MKL$(__nItems - 1) + Mid$(__Map, 5, __OFFSET - 5) + Mid$(__Map, __OFFSET + __LEN1 + __LEN2 + 4)
+            Exit Function
+        End If
+        __OFFSET = __OFFSET + __LEN1 + __LEN2 + 4
+    Next __I
+End Function
+Function MapAppend$ (__Map As String, __MapAppend As String)
+    MapAppend$ = MKL$(CVL(Mid$(__Map, 1, 4)) + CVL(Mid$(__MapAppend, 1, 4))) + Mid$(__Map, 5) + Mid$(__MapAppend, 5)
+End Function
