@@ -1,0 +1,11 @@
+btr re msg
+:print
+	lod
+	crv ra 0
+	je print_done
+	prn
+	jmp print
+:print_done
+	hlt
+:msg
+db "Hello, World!" 13 "Bye, World!" 0

@@ -1,0 +1,143 @@
+32 Bit VM
+
+Registers: {
+RA, RB			32-Bit Numbers
+RC, RD			32-Bit Numbers, Mouse Pointers
+RE, RF			String Pointers
+RG			Instruction Pointers
+RH			Key Pointers
+}
+Stack: {
+SA			RA, RB, RC, RD
+SB			RE, RF
+SC			RG
+SD			RH
+}
+Flags: {
+FZ			Zero Flag
+FC			Carry Flag
+FE			Equal Flag
+FG			Greater Flag
+FL			Lesser Flag
+FMB1			Mousebutton 1 Flag
+FMB2			Mousebutton 2 Flag
+FMB3			Mousebutton 3 Flag
+FMSU			Mouse Scroll Up
+FMSD			Mouse Scroll Down
+}
+
+LENGTH:{
+   Name		Bytes
+ Registers	  1
+  Memory	  2
+   Value	  1
+}
+
+DISK:{
+ior [disk_id], [destination_in_memory], [number_of_sectors]
+iow [disk_id], [source_in_memory], [number_of_sectors]
+}
+	times
+	db
+
+00	nop
+
+01	add [dest register], [source register]
+02	adm [dest register], [source memory]
+03	arv [dest register], [byte value]
+04	amv [dest memory], [byte value]
+05	sub [dest register], [source register]
+06	sbm [dest register], [source memory]
+07	srv [dest register], [byte value]
+08	smv [dest memory], [byte value]
+09	mul [dest register], [source register]
+0A	mum [dest register], [source memory]
+0B	mrv [dest register], [byte value]
+0C	mmv [dest memory], [byte value]
+0D	div [dest register], [source register]
+0E	dim [dest register], [source memory]
+0F	drv [dest register], [byte value]
+10	dmv [dest memory], [byte value]
+11	modrr [dest register], [source register]
+12	modrm [dest register], [source memory]
+13	modrv [dest register], [byte value]
+14	modmv [dest memory], [byte value]
+
+20	btr [dest register], [byte value]
+21	btm [dest memory], [byte value]
+22	itr [dest register], [integer value]
+23	itm [dest memory], [integer value]
+24	ltr [dest register], [long value]
+25	ltm [dest memory], [long value]
+26	rtr [dest register], [source register]
+27	mtm [dest memory], [source memory]
+28	rtm [dest memory], [source register]
+29	mtr [dest register], [source memory]
+
+30	sfz
+31	sfc
+32	sfe
+37	clz
+38	clc
+39	cfe
+3F	hlt
+
+40	icr [dest register]
+41	dcr [dest register]
+42	icm [dest memory]
+43	dcm [dest memory]
+
+45	gk
+46	wk
+4A	gmx
+4B	gmy
+4C	smrx [source register]
+4D	smry [source register]
+4E	smmx [source memory]
+4F	smmy [source memory]
+
+50	crr [register 1], [register 2]
+51	crm [register], [memory]
+52	cmm [memory 1], [memory 2]
+53	crv [register], [byte value]
+54	cmv [memory], [byte value]
+55	cvv [byte value], [byte value]
+
+60	jiz [dest memory]
+61	jnz [dest memory]
+62	jic [dest memory]
+63	jnc [dest memory]
+64	je [dest memory]
+65	jne [dest memory]
+66	jl [dest memory]
+67	jle [dest memory]
+68	jg [dest memory]
+69	jge [dest memory]
+6F	jmp [dest memory]
+
+70	call [dest memory]
+71	ret
+
+77	tme [dest memory]
+
+80	pusha
+81	popa
+82	pushb
+83	popb
+
+90	lct [memory], [memory]
+91	prn
+92	lod
+93	sto
+94	cls
+95	col [register 1], [register 2]
+
+A0	ior [register], [dest memory], [register]
+A1	iow [register], [source memory], [register]
+
+B0	spr [memory], [memory], [register]
+B1	spm [memory], [memory], [memory]
+B2	gpr [memory], [memory], [register]
+B3	gpm [memory], [memory], [memory]
+
+FF	sys

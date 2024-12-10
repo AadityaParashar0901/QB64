@@ -1,0 +1,41 @@
+define hash		4-byte integer
+Encryption
+{
+	define
+	{
+		i		2-byte integer,
+		in_string	string,
+		out_string	string
+	}
+	# substitution:
+		for i in range(1 to len(in_string)) {
+			in_string[i] <= in_string[i] + 64		# Add '64' to each byte
+		}
+	# create matrix from in_string with elements as:
+	matrix m => 	[[1, 2, 3, 4],[5, 6, 7, 8],[9, 10, 11, 12],[13, 14, 15, 16]]
+	#shift last row to first row
+	m => 	[[13, 14, 15, 16],[1, 2, 3, 4],[5, 6, 7, 8],[9, 10, 11, 12]]
+	#shift last column to first column
+	m => 	[[16, 13, 14, 15],[4, 1, 2, 3],[8, 5, 6, 7],[12, 9, 10, 11]]
+	#apply xor to each row with hash
+		out_string <= list{[16, 13, 14, 15] xor hash, [4, 1, 2, 3] xor hash, [8, 5, 6, 7] xor hash, [12, 9, 10, 11] xor hash}
+	return out_string
+}
+Decryption
+{
+	define
+	{
+		i		2-byte integer,
+		in_string	string,
+		out_string	string
+	}
+	# apply xor
+	# create matrix
+	# shift first column to last column
+	# shift first row to last row
+	# substitution:
+		for i in range(1 to len(in_string)) {
+			in_string[i] <= in_string[i] - 64		# Subtract '64' from each byte
+		}
+	return out_string
+}

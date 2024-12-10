@@ -1,0 +1,33 @@
+btr rf input_data
+jmp key_loop
+:eol_char
+	db 13
+:backspace_char
+	db 8
+:key_loop
+wk
+rtr ra rh
+crv ra 0
+je key_loop
+crm ra backspace_char
+je backspace_pressed
+sto
+prn
+crm ra eol_char
+je eol_pressed
+jmp key_loop
+:eol_pressed
+	btr ra 0
+	sto
+	btr re input_data
+	:prn_loop
+		lod
+		prn
+		crv ra 0
+		jg prn_loop
+	btr rf input_data
+	jmp key_loop
+:backspace_pressed
+	dcr rf
+	jmp key_loop
+:input_data

@@ -1,0 +1,29 @@
+structure CONFIGURE
+{
+	Current_PlayList_ID	INTEGER
+	Default_Volume		UBYTE
+	Dynamic_Volume		BYTE
+	Total_PlayLists		BYTE
+}
+structure PLAYLIST
+{
+	Name			STRING * 64
+	Current_Song		BYTE
+	Current_Volume		BYTE
+	Total_Songs		BYTE
+}
+structure SONG
+{
+	Name			STRING * 64
+	Path			STRING * 256
+	Specific_Volume		UBYTE
+	Song_Handle		LONG
+	Times_To_Play		BYTE
+	Times_Played		BYTE
+}
+file
+{
+	CONFIGURE
+	PLAYLIST(10)
+	SONG(10,100)
+}

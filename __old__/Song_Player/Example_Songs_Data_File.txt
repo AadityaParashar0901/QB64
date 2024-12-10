@@ -1,0 +1,6 @@
+"PlayList Name",3
+"Song 1","Path to Song 1",Desired Volume,Times to Play
+"Song 2","Path to Song 2",Desired Volume,Times to Play
+"Song 3","Path to Song 3",Desired Volume,Times to Play
+"PlayList 2 Name",1
+"Song 1 of Playlist 2","Path to Song 1",Desired Volume,Times to Play

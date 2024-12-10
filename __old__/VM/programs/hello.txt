@@ -1,0 +1,11 @@
+btr re string
+:loop
+	lod
+	crv RA 0
+	je done
+	prn
+	jmp loop
+:done
+hlt
+:string
+	db "Hello, world!" 0

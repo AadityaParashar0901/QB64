@@ -1,0 +1,66 @@
+jmp loop
+:space_char
+	db 32
+:eol_char
+	db 13
+:loop
+wk
+rtr ra rh
+call string_to_int
+btr re space_char
+lod
+prn
+rtr ra rh
+call string_to_hex
+btr re eol_char
+lod
+prn
+jmp loop
+:string_to_int
+	pusha
+	pushb
+	rtm msg ra
+	btr re msg
+	lod
+	drv ra 100
+	arv ra 48
+	prn
+	btr re msg
+	lod
+	drv ra 10
+	modrv ra 10
+	arv ra 48
+	prn
+	btr re msg
+	lod
+	modrv ra 10
+	arv ra 48
+	prn
+	popa
+	popb
+	ret
+:msg
+	db 0
+:string_to_hex
+	pusha
+	pushb
+	rtm msgb ra
+	drv ra 16
+	btr re hex_chars
+	add re ra
+	lod
+	prn
+	btr re msgb
+	lod
+	modrv ra 16
+	btr re hex_chars
+	add re ra
+	lod
+	prn
+	popa
+	popb
+	ret
+:msgb
+	db 0
+:hex_chars
+	db 48 49 50 51 52 53 54 55 56 57 "ABCDEF"

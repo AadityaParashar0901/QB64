@@ -1,0 +1,20 @@
+btr ra 100
+ltr rb 4278222847
+:a
+spr xcoorda ycoorda rb
+icm xcoordb
+icm ycoordb
+mtr rc xcoordb
+mtr rd ycoordb
+srv ra 1
+crv ra 0
+jne a
+hlt
+:xcoorda
+db 0
+:xcoordb
+db 72
+:ycoorda
+db 0
+:ycoordb
+db 72

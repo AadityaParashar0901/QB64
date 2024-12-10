@@ -1,0 +1,18 @@
+Function ENCRYPT$ (__IN$)
+    Dim BYTE~%%, __I&, __I$16, __J$16
+    __I$16 = __IN$
+    For __I& = 1 To 16: BYTE~%% = Asc(__I$16, __I&): BYTE~%% = BYTE~%% + 64: Asc(__J$16, __I&) = BYTE~%%: Next __I& 'Substitute
+    __J$16 = Right$(__J$16, 4) + Left$(__J$16, 12) 'Shift Rows
+    __J$16 = Mid$(__J$16, 4, 1) + Mid$(__J$16, 1, 3) + Mid$(__J$16, 8, 1) + Mid$(__J$16, 5, 3) + Mid$(__J$16, 12, 1) + Mid$(__J$16, 9, 3) + Mid$(__J$16, 16, 1) + Mid$(__J$16, 13, 3) 'Shift Columns
+    For __I& = 1 To 4: Mid$(__J$16, __I& * 4 - 3, 4) = MKL$((2147483648 + CVL(Mid$(__J$16, __I& * 4 - 3))) Xor PWD_CRC~&): Next __I& 'Xor Key and Reverse
+    ENCRYPT$ = __J$16
+End Function
+Function DECRYPT$ (__IN$)
+    Dim BYTE~%%, __I&, __I$16, __J$16
+    __I$16 = __IN$
+    For __I& = 1 To 4: Mid$(__J$16, __I& * 4 - 3, 4) = MKL$((2147483648 + CVL(Mid$(__I$16, __I& * 4 - 3))) Xor PWD_CRC~&): Next __I& 'Reverse and Xor Key
+    __J$16 = Mid$(__J$16, 2, 3) + Mid$(__J$16, 1, 1) + Mid$(__J$16, 6, 3) + Mid$(__J$16, 5, 1) + Mid$(__J$16, 10, 3) + Mid$(__J$16, 9, 1) + Mid$(__J$16, 14, 3) + Mid$(__J$16, 13, 1) 'Shift Columns
+    __J$16 = Right$(__J$16, 12) + Left$(__J$16, 4) 'Shift Rows
+    For __I& = 1 To 16: BYTE~%% = Asc(__J$16, __I&): BYTE~%% = BYTE~%% - 64: Asc(__J$16, __I&) = BYTE~%%: Next __I& 'Substitute
+    DECRYPT$ = __J$16
+End Function
