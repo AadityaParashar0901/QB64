@@ -1,0 +1,102 @@
+constants {
+    true
+    false
+}
+data types {
+    auto
+    void
+    bool
+    byte
+    unsigned byte
+    word
+    unsigned word
+    dword
+    unsigned dword
+    qword
+    unsigned qword
+    float
+    double
+}
+words {
+    function
+    class
+    struct
+    this
+    jumpin
+    jumpout
+    global
+    if
+    elseif
+    else
+}
+line seperator ;
+functions {
+    len
+}
+operators {
+    + - * / \ % < >
+}
+bitwise operators {
+    & | ^ ~
+}
+conditional_operators {
+    == != <= >=
+}
+assignments {
+    = += -= *= /= \= %= <<= >>=
+}
+blocks {
+    for
+    while
+    switch
+        case
+        default
+        break
+}
+preprocessor {
+    platform bits_16, bits_32, bits_64, bytecode
+    program
+    include
+    #if
+    #elseif
+    #else
+}
+
+syntax {
+    variable declaration:
+        unsigned byte a = 1;
+    variable reassignment:
+        a ^= 2;
+    function declaration {
+        one line functions:
+            function float interpolate (float a, float b, float c) = a + (b - a) * c;
+        multi line functions:
+            function float a () {
+                ...
+            }
+    }
+    conditional statements {
+        if statement:
+            if (a > 0) a = -a;
+            if (a > 0) { a = -a; };
+            if (a > 0) {}; else if (a = 0) {}; else {};
+        switch statement:
+            switch (a) {
+                case 1:
+                case 2 .. 10:
+                case default:
+                case else:
+            }
+    }
+    loops:
+        for loop:
+            for (unsigned dword i = 0; i < 100000; i++) {
+                ...
+            }
+        while loop:
+            while (true) {
+            }
+        do while loop:
+            do {
+            } while (true)
+}

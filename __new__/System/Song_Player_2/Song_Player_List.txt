@@ -1,0 +1,133 @@
+"Technoblade" 1 {
+"Technoblade - Legends Never Die" "C:\env\Song_Player\Music\Legends Never Die (A Tribute to Technoblade) An Original Song.mp3" 50 1
+"The Blade" "C:\env\Song_Player\Music\_THE BLADE_ [Technoblade Dream SMP theme song] by Kid Kozmic  Izaac Thee Unknown.mp3" 50 1
+"Legends Never Die Technoblade" "C:\env\Song_Player\Music\Legends Never Die Technoblade.mp3" 25 1
+"Blitz - Parody" "C:\env\Song_Player\Music\_Blitz_ - Parody of _Blank Space_ (has swearing).mp3" 50 1
+"Technoblade - I'll Never Die [Dream SMP]" "C:\env\Song_Player\Music\I'll Never Die   Dream SMP Animatic  Technoblade Animatic.mp3" 25 1
+"Technoblade - Voices [Dream SMP]" "C:\env\Song_Player\Music\Voices - Derivakat [Project_ BLADE  Chorus of 70] [Dream SMP original song].mp3" 20 1
+"Win It All" "C:\env\Song_Player\Music\Win It All - Derivakat [MCC original song].mp3" 25 1
+}
+"Dream SMP" 1 {
+"Casino Royale" "C:\env\Song_Player\Music\Casino Royale - Derivakat [Dream SMP original song].mp3" 25 1
+"Revived" "C:\env\Song_Player\Music\REVIVED - Derivakat [Dream SMP original song].mp3" 20 1
+"Kiss Your Dreams Goodbye" "C:\env\Song_Player\Music\Kiss Your Dreams Goodbye - Derivakat [Dream SMP original song].mp3" 25 1
+"Doomsday" "C:\env\Song_Player\Music\Doomsday - Derivakat [Dream SMP original song].mp3" 20 1
+"Ain't No Crying" "C:\env\Song_Player\Music\Ain't No Crying - Derivakat [Dream SMP original song].mp3" 20 1
+"Why" "C:\env\Song_Player\Music\Why - Derivakat [Dream SMP original song].mp3" 20 1
+"Tell Your Story" "C:\env\Song_Player\Music\Tell Your Story (Extended) - Derivakat [Dream SMP Original Song].mp3" 20 1
+"Fireborn" "C:\env\Song_Player\Music\FIREBORN - Derivakat.mp3" 20 1
+"4AM" "C:\env\Song_Player\Music\4AM - Derivakat [Dream SMP original song].mp3" 25 1
+}
+"Dream" 1 {
+"Until I End Up Dead" "C:\env\Song_Player\Music\Until I End Up Dead.mp3" 25 1
+"Mask" "C:\env\Song_Player\Music\Dream - Mask (Official Lyric Video).mp3" 25 1
+"Change My Clothes" "C:\env\Song_Player\Music\Dream & Alec Benjamin - Change My Clothes (Official Lyric Video).mp3" 25 1
+}
+"Derivakat" 1 {
+"Cycle" "C:\env\Song_Player\Music\Cycle - Derivakat & Netrum [OFFICIAL M_V].mp3" 20 1
+"Reign" "C:\env\Song_Player\Music\REIGN - Derivakat [VALORANT Original Song __ M_V].mp3" 20 1
+"Bounty Hunter" "C:\env\Song_Player\Music\Bounty Hunter - Derivakat [VALORANT Original Song __ M_V].mp3" 25 1
+"Toxin" "C:\env\Song_Player\Music\Toxin - Derivakat [VALORANT Original Song  MV].mp3" 25 1
+"BOOM" "C:\env\Song_Player\Music\BOOM - Derivakat [Raze Original Song __ VALORANT M_V].mp3" 25 1
+"Take Aim" "C:\env\Song_Player\Music\Take Aim (Remix) - Derivakat [OFFICIAL MV].mp3" 20 1
+"Nightmare" "C:\env\Song_Player\Music\Nightmare - Derivakat [OFFICIAL M_V].mp3" 25 1
+"Manhunt" "C:\env\Song_Player\Music\Manhunt - Derivakat x Yuki x Cartian [OFFICIAL M_V].mp3" 20 1
+"Viper" "C:\env\Song_Player\Music\Viper - Derivakat [OFFICIAL M_V].mp3" 20 1
+"Smile" "C:\env\Song_Player\Music\Smile - Derivakat [OFFICIAL M_V].mp3" 20 1
+"HeadCase" "C:\env\Song_Player\Music\Headcase - Derivakat [OFFICIAL M_V].mp3" 25 1
+"Tool" "C:\env\Song_Player\Music\Tool - Derivakat [OFFICIAL M_V].mp3" 25 1
+"Tool Instrumental" "C:\env\Song_Player\Music\Derivakat Tool Instrumental.mp3" 25 1
+"Don't Wanna Lose You" "C:\env\Song_Player\Music\Don't Wanna Lose You - Derivakat.mp3" 50 2
+}
+"Games" 1 {
+"GTA III Theme" "C:\env\Song_Player\Music\GTA-III-Theme.mp3" 50 3
+"GTA Vice City Theme" "C:\env\Song_Player\Music\GTA-Vice-City-Theme.mp3" 50 1
+"GTA San Andreas Theme" "C:\env\Song_Player\Music\GTA-San-Andreas-Theme.mp3" 50 3
+"Undertale - Megalovania" "C:\env\Song_Player\Music\Undertale - Megalovania.mp3" 25 1
+"Undertale Last Breath" "C:\env\Song_Player\Music\Undertale Last Breath_ An Enigmatic Encounter (Phase 3).mp3" 25 1
+"Polytopia" "C:\env\Song_Player\Music\Polytopia Theme.mp3" 50 1
+"Cymanti" "C:\env\Song_Player\Music\Cymanti Core.mp3" 50 1
+"The Curse" "C:\env\Song_Player\Music\NEFFEX - The Curse.mp3" 50 1
+"Techno Syndrome" "C:\env\Song_Player\Music\Techno Syndrome (Mortal Kombat).mp3" 50 1
+}
+"Minecraft" 1 {
+"Biome Fest" "C:\env\Song_Player\Music\Minecraft_Beta_Biome_Fest.ogg" 100 1
+"Aria Math" "C:\env\Song_Player\Music\Minecraft_Beta_Aria_Math.ogg" 100 1
+"Moog City Remix" "C:\env\Song_Player\Music\Minecraft_Moog_City_Remix.ogg" 25 1
+"Mutation" "C:\env\Song_Player\Music\Minecraft_Beta_Mutation.ogg" 100 1
+"Pigstep" "C:\env\Song_Player\Music\Pigstep.ogg" 25 1
+"Pigstep Remix" "C:\env\Song_Player\Music\Pigstep Remix.mpg" 25 1
+"Otherside" "C:\env\Song_Player\Music\Otherside.ogg" 25 1
+"Demons" "C:\env\Song_Player\Music\Demons.mp3" 50 1
+"Beginning" "C:\env\Song_Player\Music\Beginning - Fan Made Minecraft Music Disc.mp3" 25 1
+"Adventure Awaits" "C:\env\Song_Player\Music\Adventure Awaits - Fan Made Minecraft Music Disc.mp3" 25 1
+"Diamond Cave" "C:\env\Song_Player\Music\Diamond Cave - Fan Made Minecraft Music Disc.mp3" 25 1
+"Last Hallway" "C:\env\Song_Player\Music\Last Hallway - Fan Made Minecraft Music Disc.mp3" 25 1
+"No Escape" "C:\env\Song_Player\Music\No Escape (Ft. @LaudividniYT) - Fan Made Minecraft Music Disc.mp3" 25 1
+"Final Stage" "C:\env\Song_Player\Music\Final Stage - Fan Made Minecraft Music Disc.mp3" 25 1
+"Shrieker" "C:\env\Song_Player\Music\Shrieker - Fan Made Minecraft 1.19 Music Disc.mp3" 25 1
+"Speedrun + Pigstep" "C:\env\Song_Player\Music\Speedrun Music and Pigstep MASHUP.mp3" 25 1
+"Pigstep Jazz Remix" "C:\env\Song_Player\Music\Pigstep, but it's a Jazz Remix....mp3" 25 1
+"Pigstep (Electro Swing Remix)" "C:\env\Song_Player\Music\Pigstep (Electro Swing Remix)  Zivex.mp3" 25 1
+}
+"Rekrap2" 1 {
+"Outro" "C:\env\Song_Player\Music\Outro.mp3" 25 1
+"Time Adventure" "C:\env\Song_Player\Music\Time Adventure (Cover) - MathematicPony.mp3" 25 1
+}
+"Wilbur Soot" 1 {
+"I'm in Love with an E-Girl" "C:\env\Song_Player\Music\Wilbur Soot - I'm in Love with an E-Girl.mp3" 50 1
+"Portrait of a Blank Slate" "C:\env\Song_Player\Music\Portrait of a Blank Slate.mp3" 50 1
+}
+"Extra" 1 {
+"Clubbed to Death - Matrix" "C:\env\Song_Player\Music\clubbed to death - Matrix soundtrack.mp3" 25 1
+"Dior Polozheniye" "C:\env\Song_Player\Music\Dior Polozheniye.mp3" 25 1
+"Heart Afire" "C:\env\Song_Player\Music\Defqwop - Heart Afire (ft. Strix).mp3" 25 1
+"Fighting Fire" "C:\env\Song_Player\Music\Vosai & Facading - Fighting Fire (ft. Linn Sandin) [NCS Release].mp3" 25 1
+"Die for You" "C:\env\Song_Player\Music\Prokyon & Sergio Ochoa - Die For You [Rising Wave Cover Release].mp3" 25 1
+"Royalty" "C:\env\Song_Player\Music\Egzod & Maestro Chives - Royalty (ft. Neoni) [Official Lyric Video].mp3" 25 1
+"Top 20 Phonk Songs" "C:\env\Song_Player\Music\Y2meta.app - Top 20 Phonk Songs - Best of Phonk (128 kbps).mp3" 25 1
+}
+"Other" 1 {
+"Party All Night" "C:\env\Song_Player\Music\Party All Night Feat. Honey Singh (Full Video) Boss  Akshay Kumar, Sonakshi Sinha.mp3" 25 1
+}
+"Spider Verse" 1 {
+"Only One Spider-Man" "C:\env\Song_Player\Music\Spider-Man_ Into the Spider-Verse Soundtrack - Only One Spider-Man.mp3" 25 1
+"What's Up Danger" "C:\env\Song_Player\Music\Blackway & Black Caviar - _What's Up Danger_ (Spider-Man_ Into the Spider-Verse) [Official Audio].mp3" 50 1
+"Shoulder Touch" "C:\env\Song_Player\Music\Shoulder Touch.mp3" 50 1
+"Intro" "C:\env\Song_Player\Music\Across the Spider-Verse (Intro).mp3" 50 1
+"Sunflower" "C:\env\Song_Player\Music\Post Malone, Swae Lee - Sunflower (Spider-Man_ Into the Spider-Verse).mp3" 25 1
+"Gwen Stacy" "C:\env\Song_Player\Music\Spider-Woman (Gwen Stacy).mp3" 50 1
+"Calling" "C:\env\Song_Player\Music\Metro Boomin, NAV, A Boogie wit da Hoodie, Swae Lee - Calling (Official Video).mp3" 25 1
+"Am I Dreaming" "C:\env\Song_Player\Music\Metro Boomin, A$AP Rocky, Roisee - Am I Dreaming (Visualizer).mp3" 25 1
+"Nueva York Train Chase" "C:\env\Song_Player\Music\Nueva York Train Chase.mp3" 50 1
+"Start a Band" "C:\env\Song_Player\Music\Across the Spider-Verse (Start a Band).mp3" 50 1
+"Annihilate" "C:\env\Song_Player\Music\Annihilate (Spider-Man_ Across the Spider-Verse).mp3" 25 1
+}
+"English" 1 {
+"7 Rings" "C:\env\Song_Player\Music\Ariana Grande - 7 rings (Official Video).mp3" 20 1
+"Senorita" "C:\env\Song_Player\Music\Shawn Mendes, Camila Cabello - Senorita.mp3" 20 1
+"Havana" "C:\env\Song_Player\Music\Camila Cabello - Havana (Audio) ft. Young Thug.mp3" 20 1
+"We Don't Talk Anymore" "C:\env\Song_Player\Music\Charlie Puth - We Don't Talk Anymore (feat. Selena Gomez) [Official Video].mp3" 20 1
+"Gansgta's Paradise" "C:\env\Song_Player\Music\Coolio - Gangsta's Paradise (feat. L.V.) [Official Music Video].mp3" 20 1
+"Baby I'm a Gangster Too" "C:\env\Song_Player\Music\SICKICK - Gangsta Paradise _ Baby I'm A Gangster Too TikTok Remix.mp3" 25 1
+"Ego" "C:\env\Song_Player\Music\Willy William - Ego (Clip Officiel).mp3" 20 1
+"Let Her Go" "C:\env\Song_Player\Music\Passenger _ Let Her Go (Official Video).mp3" 25 1
+"Better Now" "C:\env\Song_Player\Music\Better Now.mp3" 25 1
+"You Know How We Do It" "C:\env\Song_Player\Music\Ice Cube - You Know How We Do It.mp3" 25 1
+"Fein" "C:\env\Song_Player\Music\Travis Scott - FE!N ft. Playboi Carti.mp3" 25 1
+"KSI Thick of It" "C:\env\Song_Player\Music\KSI - Thick Of It (feat. Trippie Redd) [Official Lyric Video].mp3" 25 1
+"Dirty Little Secret" "C:\env\Song_Player\Music\Dirty Little Secret - Nora Fatehi x Zack Knight (EXCLUSIVE Music Video).mp3" 25 1
+"Symphony" "C:\env\Song_Player\Music\Clean Bandit - Symphony (feat. Zara Larsson) [Official Video].mp3" 25 3
+"Friends" "C:\env\Song_Player\Music\FRIENDS.mp3" 20 1
+"Shape of You" "C:\env\Song_Player\Music\Ed Sheeran - Shape Of You [Official Lyric Video].mp3" 25 1
+"Let Me Love You" "C:\env\Song_Player\Music\DJ Snake - Let Me Love You ft. Justin Bieber.mp3" 25 1
+"Cruel Summer" "C:\env\Song_Player\Music\Cruel Summer.mp3" 25 1
+"Calm Down" "C:\env\Song_Player\Music\Rema, Selena Gomez - Calm Down (Official Music Video).mp3",25,1
+"Paint The Town Red" "C:\env\Song_Player\Music\Doja Cat - Paint The Town Red (Official Video).mp3" 25 1
+"Mask Off Freestyle" "C:\env\Song_Player\Music\Mask Off Freestyle.mp3" 50 1
+"Clandestina" "C:\env\Song_Player\Music\JVSTIN - CLANDESTINA (TikTok Remix) LYRICS.mp3" 25 1
+"On & On" "C:\env\Song_Player\Music\Cartoon - On & On (Lyrics) feat. Daniel Levi.mp3" 25 1
+"Venom" "C:\env\Song_Player\Music\Eminem - Venom.mp3" 25 1
+"Still D.R.E" "C:\env\Song_Player\Music\Still D.R.E..mp3" 20 1
+"Cradles" "C:\env\Song_Player\Music\Sub Urban - Cradles [Official Music Video].mp3" 20 1
+}
