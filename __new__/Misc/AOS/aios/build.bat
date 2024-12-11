@@ -9,4 +9,4 @@ c:\env\bin\nasm -f bin padding.asm -o padding
 copy /b bootloader.bin + files\FILE1.TXT + files\FILE2.TXT + files\FILE3.TXT + files\hi + files\cat + files\editor + padding aios.img
 del bootloader.bin padding files\hi files\cat files\editor
 if not exist aios.img pause
-qemu-system-i386 aios.img
+qemu-system-x86_64 aios.img

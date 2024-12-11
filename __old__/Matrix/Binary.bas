@@ -42,7 +42,7 @@ Print "Saving as:"; Left$(Date$, 2) + Mid$(Date$, 4, 2) + Right$(Date$, 4) + Lef
 T = PNG(Left$(Date$, 2) + Mid$(Date$, 4, 2) + Right$(Date$, 4) + Left$(Time$, 2) + Mid$(Time$, 4, 2) + Right$(Time$, 2), IMG&, "")
 Print "Saved!"
 System
-'$Include:'image.bm'
+'$Include:'files\image.bm'
 Function R$
     R$ = Chr$(Asc(RANDOMTEXT$, Int(Rnd * Len(RANDOMTEXT$)) + 1))
 End Function
