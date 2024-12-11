@@ -1,4 +1,6 @@
 $Resize:On
+$Console
+_Console On
 '$Dynamic
 
 Screen _NewImage(640, 480, 32)
@@ -25,6 +27,27 @@ _FreeImage TMPImage
 Texture = _CopyImage(TMPTexture, 32)
 _FreeImage TMPTexture
 While Texture: Wend
+
+Type Vec2
+    As Single X, Y
+End Type
+Type Vec3
+    As Single X, Y, Z
+End Type
+Dim Shared CapeVertices(7) As Vec3
+Dim Shared CapeTexCoords(7) As Vec2
+For I = 0 To 7
+    Read CapeVertices(I).X, CapeVertices(I).Y, CapeTexCoords(I).X, CapeTexCoords(I).Y: CapeVertices(I).Z = 0.5 + (I > 3)
+    _Echo Str$(CapeVertices(I).X) + Str$(CapeVertices(I).Y) + Str$(CapeVertices(I).Z) + Str$(CapeTexCoords(I).X) + Str$(CapeTexCoords(I).Y)
+Next I
+Data -5,-8,0,0
+Data 5,-8,1,0
+Data 5,8,1,1
+Data 5,-8,0,1
+Data -5,-8,0,0
+Data 5,-8,1,0
+Data 5,8,1,1
+Data 5,-8,0,1
 
 Dim Shared As _Unsigned Integer LFPS, GFPS, LFPSCount, GFPSCount: LFPS = 60
 
@@ -74,26 +97,13 @@ Sub _GL
     _glMatrixMode _GL_MODELVIEW
     _glEnable _GL_TEXTURE_2D
     _glBindTexture _GL_TEXTURE_2D, TextureHandle
-    _glBegin _GL_QUADS
-    _glVertex3f -5, 8, 0.5
-    _glTexCoord2f 0.5, 1
-    _glVertex3f -5, -8, 0.5
-    _glTexCoord2f 0, 1
-    _glVertex3f 5, -8, 0.5
-    _glTexCoord2f 0, 0
-    _glVertex3f 5, 8, 0.5
-    _glTexCoord2f 0.5, 0
-    _glEnd
-    _glBegin _GL_QUADS
-    _glVertex3f -5, 8, -0.5
-    _glTexCoord2f 1, 1
-    _glVertex3f -5, -8, -0.5
-    _glTexCoord2f 0.5, 1
-    _glVertex3f 5, -8, -0.5
-    _glTexCoord2f 0.5, 0
-    _glVertex3f 5, 8, -0.5
-    _glTexCoord2f 1, 0
-    _glEnd
+    _glEnableClientState _GL_VERTEX_ARRAY
+    _glEnableClientState _GL_TEXTURE_COORD_ARRAY
+    _glVertexPointer 3, _GL_FLOAT, 0, _Offset(CapeVertices(0))
+    _glTexCoordPointer 2, _GL_FLOAT, 0, _Offset(CapeTexCoords(0))
+    _glDrawArrays _GL_QUADS, 0, 8
+    _glDisableClientState _GL_VERTEX_ARRAY
+    _glDisableClientState _GL_TEXTURE_COORD_ARRAY
     _glDisable _GL_TEXTURE_2D
     _glDisable _GL_DEPTH_TEST
     _glFlush
