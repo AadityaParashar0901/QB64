@@ -52,7 +52,7 @@ TITLE$ = FileName$ + " - TEdi"
 DirPath$ = _StartDir$ 'Left$(FilePath$, _InStrRev(FilePath$, FileName$) - 1)
 If Len(DirPath$) Then If _DirExists(DirPath$) Then ChDir DirPath$
 
-VerticalTextOffsetLines = 2
+VerticalTextOffsetLines = 0
 VerticalTextOffset = VerticalTextOffsetLines * _FontHeight
 Height = _Height - VerticalTextOffset
 
