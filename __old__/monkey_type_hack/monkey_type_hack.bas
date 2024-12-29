@@ -4,12 +4,20 @@ For Y = 0 To 3
     For X = 0 To 9
         Read K$1(X, Y)
 Next X, Y
+YERROR = 5
+XERROR = 0
 Do
-    T& = _ScreenImage(866, 612, 1046, 680)
+    T& = _ScreenImage(866 + XERROR, 612 + YERROR, 1046 + XERROR, 680 + YERROR)
+    If CLIPPED = 0 Then
+        _Delay 1
+        _ClipboardImage = _ScreenImage(866 + XERROR, 612 + YERROR, 1046 + XERROR, 680 + YERROR)
+        CLIPPED = -1
+    End If
     _Source T&
     For X = 0 To 9
         For Y = 0 To 3
-            If _Green32(Point(X * 18 + 3, Y * 18 + 3)) = 255 Then
+            P& = Point(X * 18 + 3, Y * 18 + 3)
+            If _Red32(P&) + _Green32(P&) + _Blue32(P&) > 127 Then
                 If Asc(K$1(X, Y)) Then
                     TIME = 0
                     If LK$1 = K$1(X, Y) Then

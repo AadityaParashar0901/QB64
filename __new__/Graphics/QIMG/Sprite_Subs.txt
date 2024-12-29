@@ -1,27 +1,48 @@
 '$Include:'QIMG.bi'
 '$Include:'QIMG.bm'
-Function QIMG_LoadSprite& (QIMG_H As QIMG_Header, IMGDATA$)
-    Dim __I&
-    Dim IMG&(1 To QIMG_H.Frames)
-    __I& = UBound(QIMG_Sprites) + 1
-    ReDim _Preserve QIMG_Sprites(1 To __I&) As QIMG_Sprite
-    QIMG_Sprites(__I&).Width = QIMG_H.Width
-    QIMG_Sprites(__I&).Height = QIMG_H.Height
-    QIMG_Sprites(__I&).Frames = QIMG_H.Frames
-    QIMG_Sprites(__I&).Frame = 1
+Function QIMG_LoadSpriteFromFile& (FileName$, FPS): Dim QIMGH As QIMG_Header
+    __F = FreeFile: Open FileName$ For Binary As #__F: Get #1, , QIMGH: IMGDATA$ = String$(QIMGH.DataLength, 0): Get #1, , IMGDATA$: Close #__F
+QIMG_LoadSpriteFromFile& = QIMG_LoadSprite(QIMGH, IMGDATA$, FPS): End Function
+Function QIMG_LoadSprite& (QIMG_H As QIMG_Header, IMGDATA$, FPS): Dim __I&, IMG&(1 To QIMG_H.Frames): __I& = UBound(QIMG_Sprites) + 1: ReDim _Preserve QIMG_Sprites(1 To __I&) As QIMG_Sprite
+    QIMG_Sprites(__I&).Width = QIMG_H.Width: QIMG_Sprites(__I&).Height = QIMG_H.Height: QIMG_Sprites(__I&).Frames = QIMG_H.Frames: QIMG_Sprites(__I&).Frame = 1
     QIMG_Load QIMG_H, IMGDATA$, IMG&()
-    QIMG_Sprites(__I&).ImageHandle = String$(QIMG_H.Frames * 4, 0)
-    For I = 1 To QIMG_H.Frames
-        Mid$(QIMG_Sprites(__I&).ImageHandle, I * 4 - 3, 4) = MKL$(IMG&(I))
-    Next I
-    QIMG_LoadSprite& = __I&
-End Function
-Sub QIMG_PutSprite (__I As _Unsigned Long, X As _Unsigned Integer, Y As _Unsigned Integer)
-    _PutImage (X, Y), CVL(Mid$(QIMG_Sprites(__I).ImageHandle, QIMG_Sprites(__I).Frame * 4 - 3, 4))
-    If QIMG_Sprites(__I).Frame = QIMG_Sprites(__I).Frames Then QIMG_Sprites(__I).Frame = 1 Else QIMG_Sprites(__I).Frame = QIMG_Sprites(__I).Frame + 1
+    QIMG_Sprites(__I&).ImageHandle = String$(QIMG_H.Frames * 4, 0): For I = 1 To QIMG_H.Frames: Mid$(QIMG_Sprites(__I&).ImageHandle, I * 4 - 3, 4) = MKL$(IMG&(I)): Next I
+    QIMG_Sprites(__I&).TotalDelay = FPS / QIMG_Sprites(__I&).Frames
+QIMG_LoadSprite& = __I&: End Function
+Sub QIMG_PutSprite (__I As _Unsigned Long, __F As _Unsigned Integer, X As _Unsigned Integer, Y As _Unsigned Integer): If __F Then
+        _PutImage (X, Y), CVL(Mid$(QIMG_Sprites(__I).ImageHandle, __F * 4 - 3, 4))
+    Else
+        _PutImage (X, Y), CVL(Mid$(QIMG_Sprites(__I).ImageHandle, QIMG_Sprites(__I).Frame * 4 - 3, 4))
+        If QIMG_Sprites(__I).Delay = QIMG_Sprites(__I).TotalDelay Then
+            If QIMG_Sprites(__I).Frame = QIMG_Sprites(__I).Frames Then QIMG_Sprites(__I).Frame = 1 Else QIMG_Sprites(__I).Frame = QIMG_Sprites(__I).Frame + 1
+            QIMG_Sprites(__I).Delay = 0
+        Else
+            QIMG_Sprites(__I).Delay = QIMG_Sprites(__I).Delay + 1
+        End If
+End If: End Sub
+Sub QIMG_PutRotatedSprite (__I As _Unsigned Long, __F As _Unsigned Integer, X As _Unsigned Integer, Y As _Unsigned Integer, __T As _Unsigned Integer, S As _Unsigned Integer)
+    If X < 0 Or X > _Width(_Dest) Or Y < 0 Or Y > _Height(_Dest) Then Exit Sub
+    Dim As Single __Theta, __CT, __ST, __X1, __Y1, __X2, __Y2, __X3, __Y3, __X4, __Y4
+    __Theta = _D2R(__T): __CT = Cos(__Theta): __ST = Sin(__Theta)
+    __S = S / 2
+    __X1 = -__S * __CT + -__S * __ST: __Y1 = --__S * __ST + -__S * __CT
+    __X2 = __S * __CT + -__S * __ST: __Y2 = -__S * __ST + -__S * __CT
+    __X3 = __S * __CT + __S * __ST: __Y3 = -__S * __ST + __S * __CT
+    __X4 = -__S * __CT + __S * __ST: __Y4 = --__S * __ST + __S * __CT
+    If __F Then
+        __H& = CVL(Mid$(QIMG_Sprites(__I).ImageHandle, __F * 4 - 3, 4))
+        _MapTriangle (0, 0)-(QIMG_Sprites(__I).Width - 1, 0)-(QIMG_Sprites(__I).Width - 1, QIMG_Sprites(__I).Height - 1), __H& To(X + __X1, Y + __Y1)-(X + __X2, Y + __Y2)-(X + __X3, Y + __Y3)
+        _MapTriangle (0, 0)-(0, QIMG_Sprites(__I).Height - 1)-(QIMG_Sprites(__I).Width - 1, QIMG_Sprites(__I).Height - 1), __H& To(X + __X1, Y + __Y1)-(X + __X4, Y + __Y4)-(X + __X3, Y + __Y3)
+    Else
+        __H& = CVL(Mid$(QIMG_Sprites(__I).ImageHandle, QIMG_Sprites(__I).Frame * 4 - 3, 4))
+        _MapTriangle (0, 0)-(QIMG_Sprites(__I).Width - 1, 0)-(QIMG_Sprites(__I).Width - 1, QIMG_Sprites(__I).Height - 1), __H& To(X + __X1, Y + __Y1)-(X + __X2, Y + __Y2)-(X + __X3, Y + __Y3)
+        _MapTriangle (0, 0)-(0, QIMG_Sprites(__I).Height - 1)-(QIMG_Sprites(__I).Width - 1, QIMG_Sprites(__I).Height - 1), __H& To(X + __X1, Y + __Y1)-(X + __X4, Y + __Y4)-(X + __X3, Y + __Y3)
+        If QIMG_Sprites(__I).Delay = QIMG_Sprites(__I).TotalDelay Then
+            If QIMG_Sprites(__I).Frame = QIMG_Sprites(__I).Frames Then QIMG_Sprites(__I).Frame = 1 Else QIMG_Sprites(__I).Frame = QIMG_Sprites(__I).Frame + 1
+            QIMG_Sprites(__I).Delay = 0
+        Else
+            QIMG_Sprites(__I).Delay = QIMG_Sprites(__I).Delay + 1
+        End If
+    End If
 End Sub
-Sub QIMG_UnLoadSprite (__I As _Unsigned Long)
-    For I = 1 To QIMG_Sprites(__I).Frames
-        _FreeImage CVL(Mid$(QIMG_Sprites(__I).ImageHandle, I * 4 - 3, 4))
-    Next I
-End Sub
+Sub QIMG_UnLoadSprite (__I As _Unsigned Long): For I = 1 To QIMG_Sprites(__I).Frames: _FreeImage CVL(Mid$(QIMG_Sprites(__I).ImageHandle, I * 4 - 3, 4)): Next I: End Sub

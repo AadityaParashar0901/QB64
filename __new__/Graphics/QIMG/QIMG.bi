@@ -8,5 +8,6 @@ Type QIMG_Header
 End Type
 Type QIMG_Sprite
     As _Unsigned Long Width, Height, Frames, Frame
+    As _Unsigned _Byte Delay, TotalDelay
     As String ImageHandle
 End Type
