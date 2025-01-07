@@ -7,7 +7,7 @@ End Type
 
 Const TILE_STATE_BLANK = 1, TILE_STATE_UP = 2, TILE_STATE_LEFT = 3, TILE_STATE_DOWN = 4, TILE_STATE_RIGHT = 5, TILE_STATE_ALL = 6
 
-Dim As Tile Tile_Empty, Tiles(1 To 160, 1 To 90), Tile_Up, Tile_Down, Tile_Left, Tile_Right
+Dim As Tile Tile_Empty, Tiles(1 To _Width / 10, 1 To _Height / 10), Tile_Up, Tile_Down, Tile_Left, Tile_Right
 
 Dim As Long TileImages(0 To 6): For I = 0 To 6: TileImages(I) = LoadImage(I): Next I
 
